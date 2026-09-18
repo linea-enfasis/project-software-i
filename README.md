@@ -12,30 +12,40 @@ Plantilla de la **actividad de cierre de la Clase 1**. Se diligencia en clase, e
 
 | Campo | Respuesta |
 |---|---|
-| Nombre del equipo | _(completar)_ |
-| Fecha | _(completar)_ |
+| Nombre del equipo | _SISTEM INVENTARIOS Y GESTIÓN_ |
+| Fecha | _(25/09/2026)_ |
 
 | # | Integrante | Correo | Rol / responsabilidad |
 | --- | --- | --- | --- |
-| 1 | _(completar)_ | _(completar)_ | Coordinación _(obligatorio)_ |
-| 2 | _(completar)_ | _(completar)_ | _(completar)_ |
-| 3 | _(completar)_ | _(completar)_ | _(completar)_ |
+| 1 | _JOHAN STIVEN HENAO MUÑOZ_ | _<johanhenao932@gmail.com>_ | Coordinación _(lider)_ |
+| 2 | _JOSE FERNANDO SANCHEZ GARCIA_ | _<312joselito@gmail.com>_ | _(desarrollador)_ |
+| 3 | _CRISTAN CAMILO CASTAÑO MONTES_ | _<camilomontes11@gmail.com>_ | _(desarrollador)_ |
 
-> El rol no es definitivo: se ajusta en la bitácora de gestión. Lo que sí queda fijo hoy es **quién coordina**.
+> El rol no es definitivo: se ajusta en la bitácora de gestión. Lo que sí queda fijo hoy es **JOHAN STIVEN HENAO MUÑOZ**.
 
 ---
 
 ## 2. Dominio propuesto
 
-**Dominio:** _(una línea — el sector o la actividad; e.g. "gestión de inventario para una tienda de barrio")_
+**Dominio:** _(GESTION Y CREACION DE SISTEMAS DE INVENTARIOS PARA UNA EMPRESA DE TELECOMUNICACIONES)_
 
 **Problema que se quiere resolver** _(máximo tres líneas: qué pasa hoy, a quién le duele y por qué el proceso actual no alcanza)_:
 
-_(completar)_
+_(¿Qué pasa hoy?
+No se tiene una herramienta para gestionar los inventarios de los materiales asignados a los técnicos de telecomunicaciones
+
+¿A quién le duele?
+A la empresa prestadora de servicios, por la pérdida de materiales sin justificación por parte de los técnicos.
+
+¿Por qué el proceso actual no alcanza?
+• Se evidencia mal manejo de materiales por parte de los técnicos.
+• Esto genera pérdidas injustificadas, incluso robos.
+• La empresa se queda sin materiales para asignar, afectando la operación.
+• Se produce un déficit financiero debido a la falta de control.)_
 
 **Cómo se hace hoy sin software** _(o con qué herramienta improvisada: papel, WhatsApp, un Excel)_:
 
-_(completar)_
+_(El proceso se realiza por medio de registros en papel, lo que dificulta la trazabilidad y el control.)_
 
 ---
 

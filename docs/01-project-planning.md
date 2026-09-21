@@ -15,30 +15,39 @@ Ubicar el proyecto en cada factor **con un dato concreto del dominio**, no con u
 
 | Factor | Valoración *(ágil ← → plan)* | Evidencia del dominio |
 | --- | --- | --- |
-| Tamaño | *(completar)* | *(completar)* |
-| Criticidad | *(completar)* | *(completar)* |
-| Dinamismo de los requisitos | *(completar)* | *(completar)* |
-| Personal *(experiencia del equipo)* | *(completar)* | *(completar)* |
-| Cultura *(del cliente u organización)* | *(completar)* | *(completar)* |
-| Acceso al cliente | *(completar)* | *(completar)* |
-| Regulación | *(completar)* | *(completar)* |
+| Tamaño | *(ágil)* | *(equipo de 3; un solo interesado el dueño de la empresa)* |
+| Criticidad | *(ágil)* | *(si el sistema falla, se vuelve al cuaderno)* |
+| Dinamismo de los requisitos | *(ágil)* | *(No se requiere ningun mensaje o notificacion)* |
+| Personal *(experiencia del equipo)* | *(intermedio)* | *(nadie ha trabajado en scrum; los integrantes han realizados proyectos similares)* |
+| Cultura | *(agil)* | *(el gerente acepta ver los avances del proyecto)* |
+| Acceso al cliente | *(agil)* | *(disponibilidad coodinador johan stiven henao muñoz dia viernes)* |
+| Regulación | Plan *(leve)* | *(majena nombres y documento: aplica ley 1581 de 2012)* |
 
 ---
 
 ## 2. Selección y justificación
 
-**Metodología elegida:** *(cascada / incremental / espiral / Scrum / Kanban / Scrumban)*
+**Metodología elegida:** *( Scrum )*
 
 **Justificación** *(un párrafo que cite al menos tres factores del punto 1)*:
+Es scrum;
 
-*(completar)*
+Participación sin roles fijos: todos los integrantes colaboramos activamente, sin jerarquías rígidas, lo que facilita la comunicación y la coordinación.
+
+Transparencia en las tareas: podemos revisar en qué estado se encuentran las tareas, asignar prioridades y definir tiempos ya planeados.
+
+Mejora continua: buscamos optimizar constantemente el proceso, ajustando la planificación según las necesidades que surjan.
+
+Colaboración con el cliente: revisamos detalles junto al cliente para evitar errores costosos al momento de realizar cambios, y siempre adaptamos el proyecto a sus requerimientos.
+
+Reuniones diarias: nos reunimos unos minutos cada día para analizar los progresos, identificar obstáculos y asegurar que el proyecto avance de manera ordenada.
 
 **Alternativas descartadas** *(mínimo dos)*:
 
 | Alternativa | Por qué no encaja en este dominio |
 | --- | --- |
-| *(completar)* | *(completar)* |
-| *(completar)* | *(completar)* |
+| *(Cascada)* | *(Se basa en fases rígidas y secuenciales (análisis → diseño → implementación → pruebas → entrega). En un proyecto corto, este enfoque consume demasiado tiempo en documentación y planificación antes de ver resultados funcionales. Además, si surge un cambio en los requisitos, es muy costoso y difícil volver atrás.)* |
+| *(Espiral)* | *(Aunque es más flexible, implica ciclos repetitivos de análisis de riesgos, planificación y prototipado. Esto genera una carga de trabajo innecesaria para un proyecto pequeño, donde los riesgos son bajos y lo que se busca es rapidez y simplicidad. En lugar de avanzar ágilmente, se pierde tiempo en evaluaciones que no aportan valor real al corto plazo.)* |
 
 > "Porque es la más usada" o "porque es flexible" no son justificaciones: no dicen nada del dominio.
 
@@ -48,31 +57,29 @@ Ubicar el proyecto en cada factor **con un dato concreto del dominio**, no con u
 
 Explicar cómo se organiza el equipo **dentro** de ellas.
 
-| Campo | Respuesta |
-| --- | --- |
-| Duración de la iteración *(o "flujo continuo")* | *(completar)* |
-| Eventos o reuniones y cuándo se hacen | *(completar)* |
-| Cómo se llega a la primera entrega | *(completar)* |
+Sprint de 2 semanas. Planning el lunes por videollamada, Review con el dueño todos los viernes, Retroalimentacion el dia viernes al finalizar la clase. reunion por videoconferencia diaria donde se validen los avances, retrasos y mejoras en el proyecto, dos preguntas por escrito a todos los miembros por chat del grupo, una vez hechas las revisiones se subiran los avances al repositorio
 
 **Roles asignados** *(ajustar los nombres a la metodología elegida)*:
 
 | Integrante | Rol | Qué hace en la práctica |
 | --- | --- | --- |
-| *(completar)* | *(e.g. Product Owner)* | *(completar)* |
-| *(completar)* | *(e.g. Scrum Master)* | *(completar)* |
-| *(completar)* | *(completar)* | *(completar)* |
+| *Johan Stiven Henao Muñoz* | *Product Owner* | *Es el encargado de comunicarse con el cliente y el Scrum Master* |
+| *(Cristian Montes)* | *Scrum Master* | *Encargado de la coordinacion del equipo de trabajo y el Product Owner* |
+| *Jose Sanchez* | *Desarollador* | *Desarrollo del prodcuto* |
 
 **Definición de Hecho** *(mínimo tres condiciones verificables para que una tarjeta pase a Hecho)*:
 
-1. *(completar)*
-2. *(completar)*
-3. *(completar)*
+1. *(Que cumpla con los requerimientos solicitados en la tarjeta)*
+2. *(Que tenga documentación y que tenga codigo limpio)*
+3. *(Debe ser revisada y aprobada por el scrum Master, para que pase a hecho)*
+
+*Preguntar por esto*
 
 ---
 
 ## 4. Tablero y backlog inicial
 
-Crear el tablero en **GitHub Projects**, Trello o Jira e **invitar al docente**.
+Crear el tablero en **GitHub Projects**,
 
 **Mínimos del tablero:**
 
@@ -94,11 +101,11 @@ Primera entrada de la bitácora de gestión.
 
 | Campo | Respuesta |
 | --- | --- |
-| Fecha | *(completar)* |
-| Asistentes | *(completar)* |
-| Decisiones tomadas | *(completar)* |
-| Compromisos *(quién, qué)* | *(completar)* |
-| Bloqueos o riesgos | *(completar)* |
+| Fecha | *(25/09/2026)* |
+| Asistentes | *(Grupo de trabajo y cliente)* |
+| Decisiones tomadas | *(Levantamiento de requerimientos y su respectivo analisis)* |
+| Compromisos | *(Johan Stiven Henao, se compromete a tener una entrevista todos los viernes con el cliente para definir sus peticiones y mejoras del proyecto )* |
+| Bloqueos o riesgos | *(Mal analisis de las peticiones del cliente, vulneravilidad de los datos, caida del sistema generando retrasos en las fechas de entrega o cambio bruscos en el proyectos)* |
 
 ## Ejemplo diligenciado
 

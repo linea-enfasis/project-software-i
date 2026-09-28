@@ -1,4 +1,4 @@
-# Ficha de equipo y dominio — Sesión 1
+# # Taller 1 · Ficha de equipo y dominio
 
 Plantilla de la **actividad de cierre de la Clase 1**. Se diligencia en clase, en equipo, y se entrega al final de la sesión.
 

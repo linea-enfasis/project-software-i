@@ -122,7 +122,7 @@ Una tabla por caso crítico.
 
 ## Ejemplo diligenciado
 
-Referencia de nivel de detalle. Mismo dominio de los talleres anteriores: **no se puede usar.**
+Referencia de nivel de detalle. Mismo dominio de los talleres anteriores.
 
 **1. Actores** *(barbería; extracto)*
 

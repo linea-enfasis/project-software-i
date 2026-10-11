@@ -68,11 +68,12 @@ Se escribe en cada extremo de la relación: cuántos objetos de ese lado se rela
 ---
 
 ## 2. Clases candidatas
+
 | Clase candidata | Fuente *(RF o caso de uso)* | ¿Se queda? | Por qué |
 | --- | --- | --- | --- |
 | Usuario | RF-01, RF-10, RF-16, CU-01 | Sí | Es quien ingresa con contraseña; es el padre común de administrador y técnico |
 | Administrador | RF-02, RF-03, RF-13, RF-15, CU-03, CU-04 | Sí | Crea asignaciones, confirma devoluciones y revisa defectos; guarda datos en el sistema |
-| Técnico | RF-04, RF-05, RF-08, RF-14, CU-05, CU-06 | Sí | Recibe material, lo consume, lo devuelve y reporta defectos |
+| Técnico | RF-04, RF-05, RF-08, RF-14, CU-05, CU-06, CU-08 | Sí | Recibe material, lo consume, lo devuelve y reporta defectos |
 | Material | RF-02, RF-06, RF-11, CU-03 | Sí | Concepto central del dominio: tiene código, stock y estado |
 | Asignación | RF-03, RF-14, CU-04 | Sí | Registra la entrega de material a un técnico |
 | DetalleAsignación | RF-03, CU-04 | Sí | Cada material y cantidad dentro de una asignación |
@@ -82,16 +83,17 @@ Se escribe en cada extremo de la relación: cuántos objetos de ese lado se rela
 | ReporteDefecto | RF-08, RF-13, CU-08, CU-09 | Sí | Son los "elementos defectuosos"; tiene descripción y estado de revisión |
 | Notificación | RF-11, RF-12, CU-11 | Sí | Alerta al administrador; guarda mensaje y tipo |
 | MovimientoMaterial | RF-09, RF-16, CU-10 | Sí | Es el historial: fecha, hora, tipo, cantidad y responsable |
+| SugerenciaIA | RF-11, CU-09, CU-11 | Sí | Guarda el resultado del modelo: entrada, salida, fecha y estado |
 | Material gastado | RF-04, RF-07 | No | Sinónimo de Consumo |
 | Elementos defectuosos | RF-08, RF-13 | No | Es el nombre usado en el RF; la clase es ReporteDefecto |
 | Fecha, hora | RF-16 | No | Son atributos de MovimientoMaterial |
 | Recepción | RF-15 | No | Es el estado "confirmada" de Devolución |
 | Historial de movimientos | RF-09 | No | Es la lista de MovimientoMaterial: una consulta, no una clase |
 | Inventario | RF-06 | No | Es una consulta sobre Material, no un concepto con datos propios |
+| Agente de IA | RF-11, CU-11 | No | Es el servicio que llama a la API del modelo; no va en el modelo de dominio |
 
 - **Mínimo 6 clases** que se quedan.
 - Toda clase lleva fuente. Una clase que no sale de ningún requisito o caso de uso no está en el alcance.
-
 
 ## 3. Diagrama de clases del dominio
 
@@ -103,8 +105,11 @@ Un solo diagrama con:
 - Nombres en el vocabulario del dominio *(el que salió de la elicitación del Taller 3)*.
 - Si el proyecto tiene componente de IA, la **entidad que guarda el resultado** del modelo *(e.g. `SugerenciaIA` con fecha, entrada, salida y estado)*. El servicio que llama a la API **no** va en este taller.
 
-**Imagen o enlace al diagrama:** *(completar)*
+**Imagen o enlace al diagrama:** fuente en [`diagramas/diagrama-clases.puml`](/docs/diagramas/diagrama-clases.puml)
 
+![img](/docs/diagramas/diagrama-clases.png)
+
+```plantuml
 @startuml
 title Diagrama de clases - Gestion de material
 
@@ -126,7 +131,7 @@ skinparam class<<ia>> {
   BorderColor #70AD47
 }
 
-' ===== FILA 1: clase padre =====
+' ===== Usuarios =====
 class Usuario {
   - id : int
   - nombre : String
@@ -134,36 +139,27 @@ class Usuario {
   - activo : boolean
   + iniciarSesion() : boolean
   + cerrarSesion() : void
-  + verMaterialGastado() : List<Asignacion>
 }
 
-' ===== FILA 2: actores =====
 class Administrador {
   + ingresarMaterial(material : Material) : void
-  + asignarMaterial(tecnico : Tecnico, material : Material, cantidad : int) : Asignacion
+  + asignarMaterial(tecnico : Tecnico) : Asignacion
   + verMaterialGeneral() : List<Material>
-  + verHistorial() : List<Asignacion>
+  + verHistorial() : List<MovimientoMaterial>
   + gestionarCuentaTecnico(tecnico : Tecnico, activo : boolean) : void
-  + recibirNotificacion() : void
+  + confirmarDevolucion(devolucion : Devolucion) : void
+  + revisarReporte(reporte : ReporteDefecto, aprobado : boolean) : void
 }
 
 class Tecnico {
   + consultarMaterialAsignado() : List<Asignacion>
-  + recibirMaterial(asignacion : Asignacion) : void
-  + devolverMaterial(material : Material, cantidad : int) : Devolucion
-  + devolverMaterialDefectuoso(material : Material, descripcion : String) : ReporteDefecto
+  + verMaterialGastado() : List<Consumo>
+  + registrarConsumo(detalle : DetalleAsignacion, cantidad : int) : Consumo
+  + devolverMaterial(asignacion : Asignacion) : Devolucion
+  + reportarDefecto(material : Material, descripcion : String) : ReporteDefecto
 }
 
-class AgenteIA <<ia>> {
-  - nombre : String
-  + predecirAgotamiento(material : Material) : boolean
-  + notificarMaterialPorAgotarse(material : Material) : Notificacion
-  + consultarHistorial(material : Material) : List<Asignacion>
-  + analizarReporte(reporte : ReporteDefecto) : String
-  + notificarDictamen(reporte : ReporteDefecto) : Notificacion
-}
-
-' ===== FILA 3: clases de datos =====
+' ===== Material y movimientos =====
 class Material {
   - codigo : String
   - nombre : String
@@ -172,28 +168,40 @@ class Material {
   - estado : String
 }
 
+class MovimientoMaterial {
+  - fecha : Date
+  - hora : Time
+  - tipo : String
+  - cantidad : int
+}
+
+' ===== Asignacion =====
 class Asignacion {
   - fecha : Date
   - fechaLimiteDevolucion : Date
-  - cantidadAsignada : int
-  - cantidadGastada : int
 }
 
-class Devolucion {
+class DetalleAsignacion {
+  - cantidadAsignada : int
+}
+
+class Consumo {
   - fecha : Date
   - cantidad : int
+}
+
+' ===== Devolucion =====
+class Devolucion {
+  - fecha : Date
   - estado : String
 }
 
-class Notificacion <<ia>> {
-  - id : int
-  - tipo : String
-  - mensaje : String
-  - fecha : Date
-  - leida : boolean
+class DetalleDevolucion {
+  - cantidad : int
+  - estadoMaterial : String
 }
 
-' ===== FILA 4 =====
+' ===== Defectos, notificaciones e IA =====
 class ReporteDefecto {
   - fecha : Date
   - descripcion : String
@@ -202,39 +210,54 @@ class ReporteDefecto {
   - estado : String
 }
 
+class Notificacion {
+  - id : int
+  - tipo : String
+  - mensaje : String
+  - fecha : Date
+  - leida : boolean
+}
+
+class SugerenciaIA <<ia>> {
+  - fecha : Date
+  - tipo : String
+  - entrada : String
+  - salida : String
+  - estado : String
+}
+
 ' ===== Herencia =====
 Usuario <|-down- Administrador
 Usuario <|-down- Tecnico
 
-' ===== Administrador (lado izquierdo) =====
-Administrador "1" -down-> "0..*" Material
-Administrador "1" -down-> "0..*" Asignacion
+' ===== Asignacion (composicion) =====
+Administrador "1" -down-> "0..*" Asignacion : crea
+Tecnico "1" -down- "0..*" Asignacion : recibe
+Asignacion "1" *-down- "1..*" DetalleAsignacion
+DetalleAsignacion "0..*" -left-> "1" Material
+DetalleAsignacion "1" -down- "0..*" Consumo
 
-' ===== Tecnico (lado derecho) =====
-Asignacion "0..*" -up-> "1" Tecnico
-Tecnico "1" -down-> "0..*" Devolucion
-Tecnico "1" -down-> "0..*" ReporteDefecto
-
-' ===== Relaciones entre clases de datos =====
-Material "1" -right- "0..*" Asignacion
+' ===== Devolucion (composicion) =====
+Tecnico "1" -down-> "0..*" Devolucion : registra
 Asignacion "1" -right- "0..*" Devolucion
+Devolucion "1" *-down- "1..*" DetalleDevolucion
+DetalleDevolucion "0..*" --> "1" Material
+
+' ===== Defectos =====
+Tecnico "1" -down-> "0..*" ReporteDefecto : reporta
 Material "1" -down- "0..*" ReporteDefecto
 
-' ===== Agente de IA (segundo actor) =====
-AgenteIA "1" -right-> "1" Administrador : notifica
-AgenteIA "1" -down-> "0..*" Notificacion : genera
-AgenteIA ..> Asignacion : consulta
-AgenteIA ..> ReporteDefecto : analiza
+' ===== Historial =====
+Material "1" -left- "0..*" MovimientoMaterial
+Usuario "1" -- "0..*" MovimientoMaterial : responsable
 
-' ===== Ayudas de orden =====
-Material -[hidden]right- Asignacion
-Asignacion -[hidden]right- Devolucion
-Asignacion -[hidden]down- ReporteDefecto
-Administrador -[hidden]right- Tecnico
-AgenteIA -[hidden]right- Administrador
-Notificacion -[hidden]right- Material
+' ===== Notificaciones e IA =====
+Administrador "1" -left- "0..*" Notificacion : recibe
+Material "1" -- "0..*" SugerenciaIA : prediccion de agotamiento
+ReporteDefecto "0..1" -- "0..*" SugerenciaIA : dictamen sugerido
+SugerenciaIA "0..1" -- "0..*" Notificacion : origina
 @enduml
-
+```
 
 ## 4. Trazabilidad y dudas
 
@@ -245,29 +268,28 @@ Notificacion -[hidden]right- Material
 | RF-01 | CU-01 Iniciar sesión | Usuario, Administrador, Técnico |
 | RF-02 | CU-03 Registrar ingreso de material | Administrador, Material, MovimientoMaterial |
 | RF-03 | CU-04 Asignar material a técnico | Administrador, Técnico, Asignación, DetalleAsignación, Material |
-| RF-04 | CU-05 Consultar material consumido | Técnico, Consumo, Material |
+| RF-04 | CU-05 Consultar material asignado y gastado | Administrador, Técnico, Consumo, Material |
 | RF-05 | CU-06 Devolver material | Técnico, Devolución, DetalleDevolución, Material |
 | RF-06 | CU-12 Consultar inventario general | Administrador, Material |
-| RF-07 | CU-05 Consultar material consumido | Técnico, Consumo, Material |
+| RF-07 | CU-05 Consultar material asignado y gastado | Técnico, Consumo, Material |
 | RF-08 | CU-08 Reportar material defectuoso | Técnico, ReporteDefecto, Material |
 | RF-09 | CU-10 Consultar historial de movimientos | Administrador, MovimientoMaterial |
 | RF-10 | CU-02 Gestionar cuentas de técnicos | Administrador, Usuario, Técnico |
-| RF-11 | CU-11 Recibir notificaciones | Administrador, Notificación, Material, ReporteDefecto |
+| RF-11 | CU-11 Recibir notificaciones | Administrador, Notificación, Material, ReporteDefecto, SugerenciaIA |
 | RF-12 | CU-11 Recibir notificaciones | Administrador, Notificación |
-| RF-13 | CU-09 Revisar reporte de defecto | Administrador, ReporteDefecto |
-| RF-14 | CU-05 Consultar material asignado | Técnico, Asignación, DetalleAsignación, Material |
+| RF-13 | CU-09 Revisar reporte de defecto | Administrador, ReporteDefecto, SugerenciaIA |
+| RF-14 | CU-05 Consultar material asignado y gastado | Técnico, Asignación, DetalleAsignación, Material |
 | RF-15 | CU-07 Confirmar recepción de devolución | Administrador, Devolución, DetalleDevolución |
 | RF-16 | CU-10 Consultar historial de movimientos | MovimientoMaterial, Usuario |
 
 - Cada caso crítico se apoya en al menos una clase del diagrama:
-  - CU-01 Iniciar sesión → Usuario, Administrador, Técnico.
-  - CU-04 Asignar material → Asignación, DetalleAsignación, Material.
-  - CU-06 Devolver material → Devolución, DetalleDevolución, Material.
-  - CU-08 Reportar material defectuoso → ReporteDefecto, Material, Notificación.
-
+  - CU-04 Asignar material a técnico → Administrador, Técnico, Asignación, DetalleAsignación, Material.
+  - CU-05 Consultar material asignado y gastado → Asignación, DetalleAsignación, Consumo, Material.
+  - CU-08 Reportar material defectuoso → Técnico, ReporteDefecto, Material, Notificación.
 
 **Dudas para la siguiente clase** *(lo que el equipo no pudo resolver solo)*:
-  - pregunta del punto 3 diagrama 
+
+- pregunta del punto 3 diagrama
 
 ## Ejemplo diligenciado
 
@@ -281,9 +303,5 @@ Notificacion -[hidden]right- Material
 | Agenda          | P1 *(entrevista)* | No         | Es la lista de turnos de un barbero en un día: una consulta, no una clase |
 | CierreCaja      | RF-05             | Sí         | Guarda el total del día                                                   |
 | Teléfono        | RF-01             | No         | Es un atributo de Cliente                                                 |
-
-**3. Diagrama** *(extracto en PlantUML)*
-
-![img](/docs/diagramas/diagrama-gestion-material.png)
 
 **4. Trazabilidad:** RF-01 → CU-01 Reservar turno → Cliente, Turno, Barbero. RF-02 → CU-02 Marcar no asistido → Turno *(estado)*.

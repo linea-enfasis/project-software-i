@@ -102,11 +102,11 @@ Convertir las notas propias en requisitos candidatos. Todavía no es el catálog
 
 | ID | Descripción | Prioridad | Fuente |
 | --- | --- | --- | --- |
-| RF-01 | El sistema debe permitir el ingreso del administrador y el tecnico  |  Must | P1, P3 |
+| RF-01 | El sistema debe permitir el ingreso del administrador y el tecnico con usuario y contraseña | Must | P1, P3 |
 | RF-02 | El sistema debe permitir el ingreso de material al administrador | Must | P6 |
 | RF-03 | El sistema debe permitir la asignacion del material a los tecnicos por parte del administrador | Must | P7 |
 | RF-04 | El sistema debe permitir la visualizacion del material gastado por parte de los tecnicos | Must | P7 |
-| RF-05 | El sistema debe permitir la devolucion de los materiales por parte de los tecnicos | Must | P7 |
+| RF-05 | El sistema debe permitir la devolucion de los materiales por parte de los tecnicos, indicando el estado del material (bueno, malo, defectuoso) | Must | P7 |
 | RF-06 | El sistema debe permitir la visualizacion del material a nivel general al administrador | Must | P7 |
 | RF-07 | El sistema debe permitir que el tecnico visualice su material gastado en el momento | Must | P7 |
 |RF-08  | El sistema debe permitir que el técnico ingrese en el sistema elementos entregados defectuosos	|Should	|P7|
@@ -119,7 +119,7 @@ Convertir las notas propias en requisitos candidatos. Todavía no es el catálog
 |RF-15  | El sistema debe permitir al administrador confirmar la recepción de los materiales devueltos por los técnicos	|Should|P7|
 |RF-16  | El sistema debe registrar la fecha, hora y usuario responsable de cada movimiento de material |Should|P7|
 | RNF-01 | *(Eficiencia de desempeño)* El sistema soporta ingreso simultaneo de cualquier cantidad de usuarios, respondiendo en menos de 10 s | Should | P9 |
-| RNF-02 | *(Usabilidad)* El sistema esta activo 24/7 | Must | P3, P10 |
+| RNF-02 | *(Fiabilidad)* El sistema esta activo 24/7 | Must | P3, P10 |
 | RNF-03 | *(Usabilidad)* El sistema al momento de cargar los datos se demora 15s | Should | P3, P10 |
 | RNF-04 | *(Seguridad)* El sistema debe restringir el acceso por roles: el técnico solo puede ver su material asignado y el administrador tiene acceso a la gestión completa | Must | P1, P7 |
 | RNF-05 | *(Fiabilidad)* El sistema debe garantizar la integridad del inventario: ningún movimiento de material debe dejar el stock en valores negativos | Should | P3, P10 |
@@ -185,10 +185,10 @@ La entrevista de hoy es un ensayo. La elicitación que cuenta para la Nota 1 es 
 | --- | --- |
 | Cliente del proyecto  | *(nivel 3, equipo cliente)* |
 | Técnica principal y técnica complementaria | *( entrevista + análisis de documentos)* |
-| Fecha y lugar | *(21/09/2026)* |*(Universidad Uniremintong)* | *(desde las 8:00 pm a 9:00 pm)* | 
-| Responsables | *(Johan, Entrevistador)* |  *(Cristian, Anotador)* | *(José, Observador)* |
+| Fecha y lugar | *(21/09/2026 · Universidad Uniremington · de 8:00 pm a 9:00 pm)* |
+| Responsables | *(Johan, Entrevistador · Cristian, Anotador · José, Observador)* |
 | Evidencia que se va a recoger | *( notas y grabación con consentimiento)* |
-| Preguntas que se añaden al guion tras el taller | *(¿actualmente usa algún método o herramientas para esta tarea?)* | *(¿Qué nivel de experiencia técnica tienen los usuarios en las nuevas tecnologías?)* | *(¿con que presupuesto cuentan y cuanto tiempo están dispuestos a esperar?)* | *(¿Este sistema lo usa solamente el personal de la empresa  o también sus clientes?)* |
+| Preguntas que se añaden al guion tras el taller | *(¿actualmente usa algún método o herramientas para esta tarea? · ¿Qué nivel de experiencia técnica tienen los usuarios en las nuevas tecnologías? · ¿con que presupuesto cuentan y cuanto tiempo están dispuestos a esperar? · ¿Este sistema lo usa solamente el personal de la empresa o también sus clientes?)* |
 
 - Añadir la tarjeta de la entrevista real al tablero, dentro del **Sprint 1**, con responsable y fecha.
 

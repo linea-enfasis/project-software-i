@@ -55,11 +55,13 @@ _(El proceso se realiza por medio de registros en papel, lo que dificulta la tra
 
 | Tipo de usuario | Qué necesita hacer en el sistema | ¿Tenemos acceso para entrevistarlo? |
 | --- | --- | --- |
-| _(Administrador)_ | _(carga y visualizacion de inventario)_ | Sí / — _(JOHAN STIVN HENAO MUÑOZ)
+| _(Administrador)_ | _(carga y visualizacion de inventario)_ | Sí — _(JOHAN STIVEN HENAO MUÑOZ)_ |
 | _(tecnicos)_ | _(carga de inventario)_ | Sí  — _(JOSE FERNANDO SANCHEZ GARCIA, CRISTIAN CAMILO CASTAÑO MONTES)_ |
 
 > Al menos **un usuario real y accesible** es obligatorio: en la Clase 3 hay que hacerle una sesión de elicitación de verdad.
-# No aplica porque no se cuenta con un usuario real para realizar la entrevista.
+
+**No aplica:** no se cuenta con un usuario real para realizar la entrevista.
+
 ---
 
 ## 4. Capacidad del equipo
@@ -76,8 +78,8 @@ _(SI, ALGUEIN DE NUESTRO EQUIPO PRESENCIO ESTA PROBLEMATICA EN LA EMPRESA DONDE 
 
 1. _(CARGA DE INVENTARIO)_
 2. _(VISUALIZACION DEL INVENTARIO TOTAL)_
-3. _(CARGA DE LOS ELEMENTOS EN EL INVENTARIO DE LOS GASTADO POR LOS TECNICOS )
-4. _(HISTORIAL DE LAS MODIFICACIONES)
+3. _(CARGA DE LOS ELEMENTOS EN EL INVENTARIO DE LOS GASTADO POR LOS TECNICOS)_
+4. _(HISTORIAL DE LAS MODIFICACIONES)_
 
 **Tres cosas que el sistema no va a hacer**:
 
@@ -90,10 +92,10 @@ _(SI, ALGUEIN DE NUESTRO EQUIPO PRESENCIO ESTA PROBLEMATICA EN LA EMPRESA DONDE 
 ## 6. Autoverificación
 
 - [ ] Hay **usuarios reales accesibles** para entrevistar en la Clase 3.
-- [] El dominio da para **10 requisitos funcionales y 5 no funcionales** sin inventarlos.
+- [ ] El dominio da para **10 requisitos funcionales y 5 no funcionales** sin inventarlos.
 - [X] Los **tres casos críticos** se ven implementables end-to-end en seis semanas.
 - [ ] El proyecto **no fue desarrollado** en otra asignatura ni se está reciclando.
-- [] No es demasiado grande _(una red social completa)_ ni demasiado pequeño _(una calculadora)_.
+- [ ] No es demasiado grande _(una red social completa)_ ni demasiado pequeño _(una calculadora)_.
 - [X] El sistema **maneja datos personales**: Sí / No. Si es Sí, aplica la Ley 1581 de 2012 en el numeral 10 de la Nota 1.
 
 ---

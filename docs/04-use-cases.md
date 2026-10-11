@@ -10,8 +10,9 @@ Se trabaja en clase, por equipo.
 ## 1. Actores y casos
 
 | Actor | Tipo | Principal o secundario | Objetivo |
+| --- | --- | --- | --- |
 | Administrador | Humano | Principal | Administrar usuarios de tecnico y recursos del inventario |
-| Tecnico | Humano | Principal | Manejo de material asignado  |
+| Tecnico | Humano | Principal | Manejo de material asignado |
 | Proveedor de IA | Sistema externo | Secundario | Ayudar con sugerencias cuando el material este desgastado |
 
 - Roles, no personas. La base de datos y el servidor **no** son actores.
@@ -19,17 +20,20 @@ Se trabaja en clase, por equipo.
 
 **Casos de uso**
 
-| ID    | Nombre *(verbo en infinitivo + objeto)* | Actor principal | RF que cubre |
-| ----- | --------------------------------------- | --------------- | ------------ |
-| CU-01 | *(Visualización de material gastado)*      |*(Administrador)*| *(RF-04)*    |
-| CU-02 | *(Ingreso del materiales)*              |*(Administrador)*| *(RF-02)*    |
-| CU-03 | *(Devolucion de materiales)*            |*(Tecnicos)*     | *(RF-05)*    |
-| CU-04 | *(Devolucion de materiales defectuosos)*|*(Tecnicos)*     | *(RF-08)*    |
-| CU-05 | *(Ingreso y revision del historial)*    |*(Administrador)*| *(RF-09)*    |
-| CU-06 | *(Manejo de las cuentas de tecnicos)*   |*(Administrador)*| *(RF-10)*    |
-| CU-07 | *(Visualización del material gastado)*     |*(Tecnico)*      | *(RF-07)*    |
-| CU-08 | *(la asignacion del material a los tecnicos )* |*(Administrador)* | *(RF-3)*   |
-
+| ID | Nombre *(verbo en infinitivo + objeto)* | Actor principal | RF que cubre |
+| --- | --- | --- | --- |
+| CU-01 | Iniciar sesión | Administrador, Tecnico | RF-01 |
+| CU-02 | Gestionar cuentas de técnicos | Administrador | RF-10 |
+| CU-03 | Registrar ingreso de material | Administrador | RF-02 |
+| CU-04 | Asignar material a técnico | Administrador | RF-03 |
+| CU-05 | Consultar material asignado y gastado | Tecnico, Administrador | RF-04, RF-07, RF-14 |
+| CU-06 | Devolver material | Tecnico | RF-05 |
+| CU-07 | Confirmar recepción de devolución | Administrador | RF-15 |
+| CU-08 | Reportar material defectuoso | Tecnico | RF-08 |
+| CU-09 | Revisar reporte de defecto | Administrador | RF-13 |
+| CU-10 | Consultar historial de movimientos | Administrador | RF-09, RF-16 |
+| CU-11 | Recibir notificaciones | Administrador | RF-11, RF-12 |
+| CU-12 | Consultar inventario general | Administrador | RF-06 |
 
 - **Mínimo 6 casos**, todos con al menos un RF.
 
@@ -39,13 +43,15 @@ Se trabaja en clase, por equipo.
 
 Un solo diagrama con:
 
-- **Límite del sistema** CU-01 `«include»` CU-02,CU-03, esto ya que en la visulacion del material aparecen los devueltos. CU-08 `«include»` CU-03, CU-04, CU-07, esto ya que para consultar el material se debe tener en cuenta lo devuelto ya sea por no uso o defectuoso
-CU-05 `«include»` CU-02,CU-03,CU-04,CU-07 ya que todo movimiento queda registrado.
+- **Límite del sistema** y relaciones:
+  - CU-05 `«include»` CU-03, CU-06, esto ya que en la visualizacion del material aparecen los devueltos.
+  - CU-04 `«include»` CU-06, CU-08, CU-05, esto ya que para consultar el material se debe tener en cuenta lo devuelto ya sea por no uso o defectuoso.
+  - CU-10 `«include»` CU-03, CU-06, CU-08, CU-05, ya que todo movimiento queda registrado.
 
 **Imagen o enlace al diagrama:** <<link>>
 
 ![img](/docs/diagramas/caso_uso_ingreso.jpeg)
-![img](/docs/diagramas/caso_uso_administrador.jpeg)
+![img](/docs/diagramas/caso_uso_administrador.png)
 ![img](/docs/diagramas/caso_uso_tecnico.jpeg)
 
 ## 3. Casos críticos
@@ -54,9 +60,9 @@ Los tres casos que el prototipo implementa **de punta a punta** *(de la interfaz
 
 | Caso      | Por qué es crítico *(valor / frecuencia / riesgo técnico)* |
 | --------- | ---------------------------------------------------------- |
-| *(CU-1#)* | *(Visualización del material general gastado /no existe limite para visualización/No asigna lugar de almacenamiento del material, solo se sabe que hay x candidad.)*                                              |
-| *(CU-4#)* | *(Devolucion de materiales defectuosos/limite de tiempo/Despues de 2 dias de asignado material no es valida devolucion, ya que el tecnico debe revisar material cuando lo recibe)*                                              |
-| *(CU-8#)* | *(Asignacion de material por parte del administrador/1 vez al dia/El tecnico tiene un limite de espacio para asignacion de material. Y para recibir nuevo material, debe de haber gastado mas del 80% o debe realizar devolucion del mismo para nueva asignacion)*                                              |
+| CU-05 Consultar material asignado y gastado | *(Visualización del material general gastado /no existe limite para visualización/No asigna lugar de almacenamiento del material, solo se sabe que hay x candidad.)* |
+| CU-08 Reportar material defectuoso | *(Devolucion de materiales defectuosos/limite de tiempo/Despues de 2 dias de asignado material no es valida devolucion, ya que el tecnico debe revisar material cuando lo recibe)* |
+| CU-04 Asignar material a técnico | *(Asignacion de material por parte del administrador/1 vez al dia/El tecnico tiene un limite de espacio para asignacion de material. Y para recibir nuevo material, debe de haber gastado mas del 80% o debe realizar devolucion del mismo para nueva asignacion)* |
 
 - **Máximo uno** puede ser el caso de IA; los otros dos son funcionalidad con persistencia propia.
 - No valen iniciar sesión.
@@ -66,11 +72,14 @@ Los tres casos que el prototipo implementa **de punta a punta** *(de la interfaz
 ## 4. Descripción detallada de los casos críticos
 
 Una tabla por caso crítico.
+
+### CU-04 Asignar material a técnico
+
 | Campo | Contenido |
 | --- | --- |
 | **Actor principal** | Administrador |
 | **Actores secundarios** | Tecnicos|
-| **Requisitos** | RF-01, RF-16 *(Asignacion del material, debe registar fecha, hora y usuario responsable)* |
+| **Requisitos** | RF-03, RF-16 *(Asignacion del material, debe registar fecha, hora y usuario responsable)* |
 | **Precondiciones** | Si tecnico no le han asignado material en el dia y haya gastado mas del 80% del mismo |
 | **Disparador** | El sistema muestra los tecnicos disponible para asignacion de material |
 | **Frecuencia** | Una vez al día |
@@ -93,20 +102,34 @@ Una tabla por caso crítico.
 
 ## 5. Trazabilidad
 
-//pregunta al profesor  
+**Columna de caso de uso de la matriz** *(la que se abrió en la Clase 3)*:
 
-**Columna de caso de uso de la matriz** *()*:
+| Requisito | Fuente | Caso de uso |
+| --- | --- | --- |
+| RF-01 | P1, P3 | CU-01 |
+| RF-02 | P6 | CU-03 |
+| RF-03 | P7 | CU-04 |
+| RF-04 | P7 | CU-05 |
+| RF-05 | P7 | CU-06 |
+| RF-06 | P7 | CU-12 |
+| RF-07 | P7 | CU-05 |
+| RF-08 | P7 | CU-08 |
+| RF-09 | P7 | CU-10 |
+| RF-10 | P1 | CU-02 |
+| RF-11 | P7 | CU-11 |
+| RF-12 | P7 | CU-11 |
+| RF-13 | P7 | CU-09 |
+| RF-14 | P7 | CU-05 |
+| RF-15 | P7 | CU-07 |
+| RF-16 | P7 | CU-10 |
 
-**Columna de caso de uso de la matriz (la que se abrió en la Clase 3):
+**Huecos detectados:**
 
-Requisito	Fuente	Caso de uso
-RF-01	(P# o documento)	(CU-0#)
-…		
-Huecos detectados:
+| Hueco | Cuál | Qué se hace |
+| --- | --- | --- |
+| RF sin caso de uso | Ninguno | — |
+| Caso de uso sin RF | Ninguno | — |
 
-Hueco	Cuál	Qué se hace
-RF sin caso de uso	(completar o "ninguno")	(se crea el caso / el RF sale del catálogo)
-Caso de uso sin RF	(completar o "ninguno")	(se agrega el RF / el caso sale del alcance)
 Todo lo que cambie el catálogo va al registro de control de cambios de la bitácora.
 
 ---

@@ -1,0 +1,147 @@
+@startuml
+title Diagrama de clases - Gestion de material
+
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam nodesep 90
+skinparam ranksep 110
+skinparam shadowing false
+skinparam ArrowColor #333333
+skinparam ArrowThickness 1.5
+skinparam class {
+  BackgroundColor #DAE3F3
+  BorderColor #4A86C5
+  FontSize 14
+  AttributeFontSize 12
+}
+skinparam class<<ia>> {
+  BackgroundColor #E2F0D9
+  BorderColor #70AD47
+}
+
+' ===== Usuarios =====
+class Usuario {
+  - id : int
+  - nombre : String
+  - contrasena : String
+  - activo : boolean
+  + iniciarSesion() : boolean
+  + cerrarSesion() : void
+}
+
+class Administrador {
+  + ingresarMaterial(material : Material) : void
+  + asignarMaterial(tecnico : Tecnico) : Asignacion
+  + verMaterialGeneral() : List<Material>
+  + verHistorial() : List<MovimientoMaterial>
+  + gestionarCuentaTecnico(tecnico : Tecnico, activo : boolean) : void
+  + confirmarDevolucion(devolucion : Devolucion) : void
+  + revisarReporte(reporte : ReporteDefecto, aprobado : boolean) : void
+}
+
+class Tecnico {
+  + consultarMaterialAsignado() : List<Asignacion>
+  + verMaterialGastado() : List<Consumo>
+  + registrarConsumo(detalle : DetalleAsignacion, cantidad : int) : Consumo
+  + devolverMaterial(asignacion : Asignacion) : Devolucion
+  + reportarDefecto(material : Material, descripcion : String) : ReporteDefecto
+}
+
+' ===== Material y movimientos =====
+class Material {
+  - codigo : String
+  - nombre : String
+  - stock : int
+  - stockMinimo : int
+  - estado : String
+}
+
+class MovimientoMaterial {
+  - fecha : Date
+  - hora : Time
+  - tipo : String
+  - cantidad : int
+}
+
+' ===== Asignacion =====
+class Asignacion {
+  - fecha : Date
+  - fechaLimiteDevolucion : Date
+}
+
+class DetalleAsignacion {
+  - cantidadAsignada : int
+}
+
+class Consumo {
+  - fecha : Date
+  - cantidad : int
+}
+
+' ===== Devolucion =====
+class Devolucion {
+  - fecha : Date
+  - estado : String
+}
+
+class DetalleDevolucion {
+  - cantidad : int
+  - estadoMaterial : String
+}
+
+' ===== Defectos, notificaciones e IA =====
+class ReporteDefecto {
+  - fecha : Date
+  - descripcion : String
+  - fotos : List<String>
+  - dictamen : String
+  - estado : String
+}
+
+class Notificacion {
+  - id : int
+  - tipo : String
+  - mensaje : String
+  - fecha : Date
+  - leida : boolean
+}
+
+class SugerenciaIA <<ia>> {
+  - fecha : Date
+  - tipo : String
+  - entrada : String
+  - salida : String
+  - estado : String
+}
+
+' ===== Herencia =====
+Usuario <|-down- Administrador
+Usuario <|-down- Tecnico
+
+' ===== Asignacion (composicion) =====
+Administrador "1" -down-> "0..*" Asignacion : crea
+Tecnico "1" -down- "0..*" Asignacion : recibe
+Asignacion "1" *-down- "1..*" DetalleAsignacion
+DetalleAsignacion "0..*" -left-> "1" Material
+DetalleAsignacion "1" -down- "0..*" Consumo
+
+' ===== Devolucion (composicion) =====
+Tecnico "1" -down-> "0..*" Devolucion : registra
+Asignacion "1" -right- "0..*" Devolucion
+Devolucion "1" *-down- "1..*" DetalleDevolucion
+DetalleDevolucion "0..*" --> "1" Material
+
+' ===== Defectos =====
+Tecnico "1" -down-> "0..*" ReporteDefecto : reporta
+Material "1" -down- "0..*" ReporteDefecto
+
+' ===== Historial =====
+Material "1" -left- "0..*" MovimientoMaterial
+Usuario "1" -- "0..*" MovimientoMaterial : responsable
+
+' ===== Notificaciones e IA =====
+Administrador "1" -left- "0..*" Notificacion : recibe
+Material "1" -- "0..*" SugerenciaIA : prediccion de agotamiento
+ReporteDefecto "0..1" -- "0..*" SugerenciaIA : dictamen sugerido
+SugerenciaIA "0..1" -- "0..*" Notificacion : origina
+@enduml
